@@ -1,6 +1,7 @@
-﻿using System.Linq;
+﻿using Gestion_Inventarios_APP.Models;
+using System;
+using System.Linq;
 using System.Web.Mvc;
-using Gestion_Inventarios_APP.Models;
 
 namespace Gestion_Inventarios_APP.Controllers
 {
@@ -19,13 +20,13 @@ namespace Gestion_Inventarios_APP.Controllers
         [HttpPost]
         public ActionResult Guardar(string nombre, int? cantidad)
         {
-            // VALIDACIÓ NOMBRE
+            // VALIDACIÓN NOMBRE
             if (string.IsNullOrWhiteSpace(nombre))
             {
                 ModelState.AddModelError("nombre", "El nombre es obligatorio.");
             }
 
-            // VALIDACIÓ CANTIDAD Y NÚMERO POSITIVO
+            // VALIDACIÓN CANTIDAD Y NÚMERO POSITIVO
             if (!cantidad.HasValue)
             {
                 ModelState.AddModelError("cantidad", "La cantidad es obligatoria.");
@@ -44,7 +45,8 @@ namespace Gestion_Inventarios_APP.Controllers
             var nuevoProducto = new Producto
             {
                 Nombre = nombre,
-                Cantidad = cantidad.Value
+                Cantidad = cantidad.Value,
+                FechaRegistro = DateTime.Now
             };
 
             db.Productos.Add(nuevoProducto);
@@ -52,7 +54,6 @@ namespace Gestion_Inventarios_APP.Controllers
 
             return RedirectToAction("Index");
         }
-
         public ActionResult Eliminar(int id)
         {
             var producto = db.Productos.Find(id);

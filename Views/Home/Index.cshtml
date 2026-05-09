@@ -28,7 +28,9 @@
             <th style="padding: 10px;">ID</th>
             <th style="padding: 10px;">Nombre del Artículo</th>
             <th style="padding: 10px;">Cantidad en Stock</th>
+            <th style="padding: 10px;">Fecha de Registro</th>
             <th style="padding: 10px;">Acciones</th>
+
         </tr>
     </thead>
 
@@ -53,7 +55,7 @@
                                         style="color: green; font-weight: bold; border: none; background: none; cursor: pointer;"
                                         onclick="return confirm('¿Deseas guardar los cambios realizados?\n\nNuevo Nombre: ' + document.getElementsByName('Nombre')[0].value + '\nNueva Cantidad: ' + document.getElementsByName('Cantidad')[0].value);">
                                     Guardar
-                                </button> 
+                                </button>
                                 <a href="@Url.Action("Index")" style="color: gray;">Cancelar</a>
                             </td>
                         }
@@ -62,6 +64,7 @@
                     {
                         <td>@item.Nombre</td>
                         <td>@item.Cantidad</td>
+                        <td>@item.FechaRegistro.ToString("dd/MM/yyyy HH:mm")</td>
                         <td>
                             <a href="@Url.Action("Index", new { idEditar = item.Id })" style="color: #007bff;">Editar</a>
 
