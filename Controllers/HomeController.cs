@@ -1,30 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
+using Gestion_Inventarios_APP.Models;
 
 namespace Gestion_Inventarios_APP.Controllers
 {
     public class HomeController : Controller
     {
+        private DbContexto db = new DbContexto();
+
         public ActionResult Index()
         {
-            return View();
+            var listaProductos = db.Productos.ToList();
+            return View(listaProductos);
         }
 
-        public ActionResult About()
+        [HttpPost]
+        public ActionResult Guardar(string nombre, int cantidad)
         {
-            ViewBag.Message = "Your application description page.";
+            var nuevoProducto = new Producto
+            {
+                Nombre = nombre,
+                Cantidad = cantidad
+            };
 
-            return View();
-        }
+            db.Productos.Add(nuevoProducto);
+            db.SaveChanges();
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            return RedirectToAction("Index");
         }
     }
 }
