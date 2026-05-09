@@ -21,52 +21,58 @@
 </div>
 
 <table border="1" cellpadding="8" style="border-collapse: collapse; width: 100%; text-align: left;">
-    <tr style="background-color: #f2f2f2;">
-        <th>ID</th>
-        <th>Nombre del Artículo</th>
-        <th>Cantidad en Stock</th>
-    </tr>
+    <thead>
+        <tr style="background-color: #f2f2f2;">
+            <th style="padding: 10px;">ID</th>
+            <th style="padding: 10px;">Nombre del Artículo</th>
+            <th style="padding: 10px;">Cantidad en Stock</th>
+            <th style="padding: 10px;">Acciones</th>
+        </tr>
+    </thead>
 
-    @if (Model != null)
-    {
-        foreach (var item in Model)
+    <tbody>
+
+        @if (Model != null)
         {
-            <tr>
-                <td>@item.Id</td>
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
 
-                @if (ViewBag.IdEditar == item.Id)
-                {
-                    using (Html.BeginForm("Actualizar", "Home", FormMethod.Post))
+                    @if (ViewBag.IdEditar == item.Id)
                     {
-                        @Html.Hidden("Id", item.Id)
-                        <td><input type="text" name="Nombre" value="@item.Nombre" required /></td>
-                        <td><input type="number" name="Cantidad" value="@item.Cantidad" required min="1" /></td>
+                        using (Html.BeginForm("Actualizar", "Home", FormMethod.Post))
+                        {
+                            @Html.Hidden("Id", item.Id)
+                            <td><input type="text" name="Nombre" value="@item.Nombre" required /></td>
+                            <td><input type="number" name="Cantidad" value="@item.Cantidad" required min="1" /></td>
+                            <td>
+                                <button type="submit" style="color: green; font-weight: bold;">Guardar</button> |
+                                <a href="@Url.Action("Index")" style="color: gray;">Cancelar</a>
+                            </td>
+                        }
+                    }
+                    else
+                    {
+                        <td>@item.Nombre</td>
+                        <td>@item.Cantidad</td>
                         <td>
-                            <button type="submit" style="color: green; font-weight: bold;">Guardar</button> |
-                            <a href="@Url.Action("Index")" style="color: gray;">Cancelar</a>
+                            <a href="@Url.Action("Index", new { idEditar = item.Id })" style="color: #007bff;">Editar</a>
+
+                            |
+
+                            @using (Html.BeginForm("Eliminar", "Home", FormMethod.Post, new { style = "display:inline;" }))
+                            {
+                                <input type="hidden" name="id" value="@item.Id" />
+                                <button type="submit" style="background:none; border:none; color:red; cursor:pointer;" onclick="return confirm('¿Eliminar este artículo?')">
+                                    Eliminar
+                                </button>
+                            }
                         </td>
                     }
-                }
-                else
-                {
-                    <td>@item.Nombre</td>
-                    <td>@item.Cantidad</td>
-                    <td>
-                        <a href="@Url.Action("Index", new { idEditar = item.Id })" style="color: #007bff;">Editar</a>
-
-                        |
-
-                        @using (Html.BeginForm("Eliminar", "Home", FormMethod.Post, new { style = "display:inline;" }))
-                        {
-                            <input type="hidden" name="id" value="@item.Id" />
-                            <button type="submit" style="background:none; border:none; color:red; cursor:pointer;" onclick="return confirm('¿Eliminar este artículo?')">
-                                Eliminar
-                            </button>
-                        }
-                    </td>
-                }
-            </tr>
+                </tr>
+            }
         }
-    }
+        </tbody>
 </table>
 
