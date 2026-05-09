@@ -14,7 +14,9 @@
         <label>Cantidad:</label>
         <input type="number" name="cantidad" required min="1" style="margin-right: 15px; padding: 5px; width: 80px;" />
 
-        <button type="submit" style="padding: 6px 15px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">
+        <button type="submit"
+                style="padding: 6px 15px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;"
+                onclick="return confirm('¿Confirmar registro?\n\nArtículo: ' + document.getElementsByName('nombre')[0].value + '\nCantidad: ' + document.getElementsByName('cantidad')[0].value);">
             Agregar al Inventario
         </button>
     </form>
@@ -47,7 +49,11 @@
                             <td><input type="text" name="Nombre" value="@item.Nombre" required /></td>
                             <td><input type="number" name="Cantidad" value="@item.Cantidad" required min="1" /></td>
                             <td>
-                                <button type="submit" style="color: green; font-weight: bold;">Guardar</button> |
+                                <button type="submit"
+                                        style="color: green; font-weight: bold; border: none; background: none; cursor: pointer;"
+                                        onclick="return confirm('¿Deseas guardar los cambios realizados?\n\nNuevo Nombre: ' + document.getElementsByName('Nombre')[0].value + '\nNueva Cantidad: ' + document.getElementsByName('Cantidad')[0].value);">
+                                    Guardar
+                                </button> 
                                 <a href="@Url.Action("Index")" style="color: gray;">Cancelar</a>
                             </td>
                         }
