@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using System.Web.Mvc;
+using Newtonsoft.Json;
 
 namespace Gestion_Inventarios_APP.Controllers
 {
@@ -14,6 +15,10 @@ namespace Gestion_Inventarios_APP.Controllers
             ViewBag.IdEditar = idEditar;
 
             var listaProductos = db.Productos.ToList();
+            var nombres = listaProductos.Select(p => p.Nombre).ToList();
+            var cantidades = listaProductos.Select(p => p.Cantidad).ToList();
+            ViewBag.EtiquetasJSON = Newtonsoft.Json.JsonConvert.SerializeObject(nombres);
+            ViewBag.ValoresJSON = Newtonsoft.Json.JsonConvert.SerializeObject(cantidades);
             return View(listaProductos);
         }
 

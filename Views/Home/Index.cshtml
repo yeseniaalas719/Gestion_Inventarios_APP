@@ -6,6 +6,7 @@
 
 <h4>Panel de Control de Artículos</h4>
 
+
 <div style="margin-bottom: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 5px;">
     <form action="/Home/Guardar" method="post">
         <label>Nombre del artículo:</label>
@@ -20,6 +21,30 @@
             Agregar al Inventario
         </button>
     </form>
+</div>
+
+<div class="row mt-2 mb-3">
+    <div class="col-md-6">
+        <div class="card shadow-sm border-0">
+            <div class="card-header text-black py-1" style="background-color:#f2f2f2;">
+                <h6 class="mb-0">Análisis de Stock</h6>
+            </div>
+            <div class="card-body" style="height: 220px; padding: 10px;">
+                <canvas id="graficoBarras"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card shadow-sm border-0">
+            <div class="card-header text-black py-1" style="background-color:#f2f2f2;">
+                <h6 class="mb-0">Distribución %</h6>
+            </div>
+            <div class="card-body" style="height: 220px; padding: 10px;">
+                <canvas id="graficoDona"></canvas>
+            </div>
+        </div>
+    </div>
 </div>
 
 <table border="1" cellpadding="8" style="border-collapse: collapse; width: 100%; text-align: left;">
@@ -82,6 +107,43 @@
                 </tr>
             }
         }
-        </tbody>
+    </tbody>
 </table>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const etiquetasJS = @Html.Raw(ViewBag.EtiquetasJSON);
+    const valoresJS = @Html.Raw(ViewBag.ValoresJSON);
+
+    const coloresPalette = ['#007bff', '#28a745', '#ffc107', '#dc3545', '#6f42c1', '#17a2b8'];
+
+    const ctxB = document.getElementById('graficoBarras').getContext('2d');
+    new Chart(ctxB, {
+        type: 'bar',
+        data: {
+            labels: etiquetasJS,
+            datasets: [{
+                label: 'Cantidad disponible',
+                data: valoresJS,
+                backgroundColor: coloresPalette
+            }]
+        },
+        options: { responsive: true, maintainAspectRatio: false }
+    });
+
+    const ctxD = document.getElementById('graficoDona').getContext('2d');
+    new Chart(ctxD, {
+        type: 'doughnut',
+        data: {
+            labels: etiquetasJS,
+            datasets: [{
+                data: valoresJS,
+                backgroundColor: coloresPalette
+            }]
+        },
+        options: { responsive: true, maintainAspectRatio: false }
+    });
+</script>
+
 
