@@ -6,21 +6,27 @@
 
 <h4>Panel de Control de Artículos</h4>
 
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div style="padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); background-color: #fff;">
 
-<div style="margin-bottom: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 5px;">
-    <form action="/Home/Guardar" method="post">
-        <label>Nombre del artículo:</label>
-        <input type="text" name="nombre" required style="margin-right: 15px; padding: 5px;" />
 
-        <label>Cantidad:</label>
-        <input type="number" name="cantidad" required min="1" style="margin-right: 15px; padding: 5px; width: 80px;" />
+            <form action="/Home/Guardar" method="post">
+                <label>Nombre del artículo:</label>
+                <input type="text" name="nombre" required style="margin-right: 15px; padding: 5px;" />
 
-        <button type="submit"
-                style="padding: 6px 15px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;"
-                onclick="return confirm('¿Confirmar registro?\n\nArtículo: ' + document.getElementsByName('nombre')[0].value + '\nCantidad: ' + document.getElementsByName('cantidad')[0].value);">
-            Agregar al Inventario
-        </button>
-    </form>
+                <label>Cantidad:</label>
+                <input type="number" name="cantidad" required min="1" style="margin-right: 15px; padding: 5px; width: 80px;" />
+
+                <button type="submit"
+                        style="padding: 6px 15px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;"
+                        onclick="return confirm('¿Confirmar registro?\n\nArtículo: ' + document.getElementsByName('nombre')[0].value + '\nCantidad: ' + document.getElementsByName('cantidad')[0].value);">
+                    Agregar al Inventario
+                </button>
+            </form>
+        </div>
+        </div>
+
 </div>
 
 <div class="row mt-2 mb-3">

@@ -85,13 +85,20 @@ namespace Gestion_Inventarios_APP.Controllers
         {
             if (ModelState.IsValid && productoEditado.Cantidad > 0)
             {
-                db.Entry(productoEditado).State = System.Data.Entity.EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                var original = db.Productos.AsNoTracking().FirstOrDefault(p => p.Id == productoEditado.Id);
+
+                if (original != null)
+
+                {
+                    productoEditado.FechaRegistro = original.FechaRegistro;
+                    db.Entry(productoEditado).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+
+                }
             }
             return View("Editar", productoEditado);
-        }
 
+        }
     }
 }
-
