@@ -3,6 +3,8 @@ using System;
 using System.Linq;
 using System.Web.Mvc;
 using Newtonsoft.Json;
+using Rotativa;
+
 
 namespace Gestion_Inventarios_APP.Controllers
 {
@@ -100,5 +102,17 @@ namespace Gestion_Inventarios_APP.Controllers
             return View("Editar", productoEditado);
 
         }
+        public ActionResult DescargarReportePDF()
+        {
+            var listaProductos = db.Productos.ToList();
+
+            return new Rotativa.ViewAsPdf("ReportePDF", listaProductos)
+            {
+                FileName = "Inventario_Tecnologico_" + DateTime.Now.ToString("ddMMyyyy") + ".pdf",
+                PageOrientation = Rotativa.Options.Orientation.Portrait,
+                PageMargins = new Rotativa.Options.Margins(10, 10, 10, 10)
+            };
+        }
+
     }
 }

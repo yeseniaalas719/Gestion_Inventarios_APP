@@ -1,0 +1,78 @@
+﻿
+@model IEnumerable<Gestion_Inventarios_APP.Models.Producto>
+@{ Layout = null; }
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: #007bff;
+            border-bottom: 2px solid #007bff;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 10px;
+            text-align: left;
+        }
+
+        td {
+            border: 1px solid #dee2e6;
+            padding: 10px;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 12px;
+            text-align: right;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Reporte de Inventario</h1>
+        <p>Generado el: @DateTime.Now.ToString("dd/MM/yyyy HH:mm")</p>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre del Artículo</th>
+                <th>Stock</th>
+                <th>Registro</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Nombre</td>
+                    <td>@item.Cantidad</td>
+                    <td>@item.FechaRegistro.ToString("dd/MM/yyyy")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="footer">
+        Desarrollado por Yesenia Alas - © 2026
+    </div>
+</body>
+</html>

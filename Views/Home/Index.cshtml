@@ -23,6 +23,12 @@
                         onclick="return confirm('¿Confirmar registro?\n\nArtículo: ' + document.getElementsByName('nombre')[0].value + '\nCantidad: ' + document.getElementsByName('cantidad')[0].value);">
                     Agregar al Inventario
                 </button>
+                <a href="@Url.Action("DescargarReportePDF", "Home")"
+                   class="btn btn-danger"
+                   style="padding: 6px 15px; background-color: #dc3545; color: white; border: none; border-radius: 4px; text-decoration: none; margin-left: 10px;">
+                    Descargar PDF
+                </a>
+
             </form>
         </div>
         </div>
