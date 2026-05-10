@@ -9,7 +9,7 @@ Una solución integral para la gestión de inventarios tecnológicos, diseñada 
 
 ## 🚀 Características Principales
 
-* **Panel de Control Moderno**.
+* **Panel de Control Moderno**
 * **Gestión CRUD Completa**: Registro, edición, visualización y eliminación de artículos con persistencia de datos.
 * **Reportería Estadística**: Gráficos interactivos de barras y dona que permiten analizar el stock y la distribución de productos en tiempo real.
 * **Integridad de Datos**: Lógica de persistencia avanzada para mantener la cronología de registros.
