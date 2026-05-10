@@ -53,72 +53,75 @@
     </div>
 </div>
 
-<table border="1" cellpadding="8" style="border-collapse: collapse; width: 100%; text-align: left;">
-    <thead>
-        <tr style="background-color: #f2f2f2;">
-            <th style="padding: 10px;">ID</th>
-            <th style="padding: 10px;">Nombre del Artículo</th>
-            <th style="padding: 10px;">Cantidad en Stock</th>
-            <th style="padding: 10px;">Fecha de Registro</th>
-            <th style="padding: 10px;">Acciones</th>
+<div class="card shadow-sm border-0" style="border-radius: 10px; overflow: hidden;">
+    <table class="table mb-0" style="width: 100%; text-align: left; border-collapse: collapse;">
+        <thead class="bg-light">
+            <tr style="background-color: #f2f2f2;">
+                <th style="padding: 10px;">ID</th>
+                <th style="padding: 10px;">Nombre del Artículo</th>
+                <th style="padding: 10px;">Cantidad en Stock</th>
+                <th style="padding: 10px;">Fecha de Registro</th>
+                <th style="padding: 10px;">Acciones</th>
 
-        </tr>
-    </thead>
+            </tr>
+        </thead>
 
-    <tbody>
+        <tbody>
 
-        @if (Model != null)
-        {
-            foreach (var item in Model)
+            @if (Model != null)
             {
-                <tr>
-                    <td>@item.Id</td>
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Id</td>
 
-                    @if (ViewBag.IdEditar == item.Id)
-                    {
-                        using (Html.BeginForm("Actualizar", "Home", FormMethod.Post))
+                        @if (ViewBag.IdEditar == item.Id)
                         {
-                            @Html.Hidden("Id", item.Id)
-                            <td><input type="text" name="Nombre" value="@item.Nombre" required /></td>
-                            <td><input type="number" name="Cantidad" value="@item.Cantidad" required min="1" /></td>
+                            using (Html.BeginForm("Actualizar", "Home", FormMethod.Post))
+                            {
+                                @Html.Hidden("Id", item.Id)
+                                <td><input type="text" name="Nombre" value="@item.Nombre" required /></td>
+                                <td><input type="number" name="Cantidad" value="@item.Cantidad" required min="1" /></td>
+                                <td>
+                                    <button type="submit"
+                                            style="color: green; font-weight: bold; border: none; background: none; cursor: pointer;"
+                                            onclick="return confirm('¿Deseas guardar los cambios realizados?\n\nNuevo Nombre: ' + document.getElementsByName('Nombre')[0].value + '\nNueva Cantidad: ' + document.getElementsByName('Cantidad')[0].value);">
+                                        Guardar
+                                    </button>
+                                    <a href="@Url.Action("Index")" style="color: gray;">Cancelar</a>
+                                </td>
+                            }
+                        }
+                        else
+                        {
+                            <td>@item.Nombre</td>
+                            <td>@item.Cantidad</td>
+                            <td>@item.FechaRegistro.ToString("dd/MM/yyyy HH:mm")</td>
                             <td>
-                                <button type="submit"
-                                        style="color: green; font-weight: bold; border: none; background: none; cursor: pointer;"
-                                        onclick="return confirm('¿Deseas guardar los cambios realizados?\n\nNuevo Nombre: ' + document.getElementsByName('Nombre')[0].value + '\nNueva Cantidad: ' + document.getElementsByName('Cantidad')[0].value);">
-                                    Guardar
-                                </button>
-                                <a href="@Url.Action("Index")" style="color: gray;">Cancelar</a>
+                                <a href="@Url.Action("Index", new { idEditar = item.Id })" style="color: #007bff;">Editar</a>
+
+                                |
+
+                                @using (Html.BeginForm("Eliminar", "Home", FormMethod.Post, new { style = "display:inline;" }))
+                                {
+                                    <input type="hidden" name="id" value="@item.Id" />
+                                    <button type="submit" style="background:none; border:none; color:red; cursor:pointer;" onclick="return confirm('¿Eliminar este artículo?')">
+                                        Eliminar
+                                    </button>
+                                }
                             </td>
                         }
-                    }
-                    else
-                    {
-                        <td>@item.Nombre</td>
-                        <td>@item.Cantidad</td>
-                        <td>@item.FechaRegistro.ToString("dd/MM/yyyy HH:mm")</td>
-                        <td>
-                            <a href="@Url.Action("Index", new { idEditar = item.Id })" style="color: #007bff;">Editar</a>
-
-                            |
-
-                            @using (Html.BeginForm("Eliminar", "Home", FormMethod.Post, new { style = "display:inline;" }))
-                            {
-                                <input type="hidden" name="id" value="@item.Id" />
-                                <button type="submit" style="background:none; border:none; color:red; cursor:pointer;" onclick="return confirm('¿Eliminar este artículo?')">
-                                    Eliminar
-                                </button>
-                            }
-                        </td>
-                    }
-                </tr>
+                    </tr>
+                }
             }
-        }
-    </tbody>
-</table>
+        </tbody>
+    </table>
+    </div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
     const etiquetasJS = @Html.Raw(ViewBag.EtiquetasJSON);
     const valoresJS = @Html.Raw(ViewBag.ValoresJSON);
 
@@ -150,6 +153,6 @@
         },
         options: { responsive: true, maintainAspectRatio: false }
     });
-</script>
+    </script>
 
 
