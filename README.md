@@ -27,7 +27,7 @@ Una solución integral para la gestión de inventarios tecnológicos, diseñada 
 
 1.  **Clonar el repositorio**:
     ```bash
-    git clone [https://github.com/yeseniaalas719//Gestion_Inventarios_APP.git]
+    git clone [https://github.com/yeseniaalas719/Gestion_Inventarios_APP.git]
     ```
 2.  **Restaurar paquetes NuGet**:
     Abre la solución en Visual Studio y compila el proyecto para descargar automáticamente las dependencias (Entity Framework, Chart.js, Rotativa).
